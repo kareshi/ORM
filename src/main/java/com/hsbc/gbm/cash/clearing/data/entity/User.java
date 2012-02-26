@@ -2,7 +2,7 @@ package com.hsbc.gbm.cash.clearing.data.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Users")
 public class User {
 
     @Id
