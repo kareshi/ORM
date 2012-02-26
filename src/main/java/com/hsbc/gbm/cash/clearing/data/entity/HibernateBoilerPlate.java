@@ -2,7 +2,7 @@ package com.hsbc.gbm.cash.clearing.data.entity;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 public class HibernateBoilerPlate {
 
@@ -11,7 +11,7 @@ public class HibernateBoilerPlate {
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            return new Configuration().configure().buildSessionFactory();
+            return new AnnotationConfiguration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
@@ -35,6 +35,7 @@ public class HibernateBoilerPlate {
         session.beginTransaction();
         User user = new User();
 
+        user.setId(1L);
         user.setName("Ivan");
         user.setPassword("Chio");
 
