@@ -3,7 +3,7 @@ package com.hsbc.gbm.cash.clearing.data.entity;
 import javax.persistence.*;
 
 @Entity(name = "Users")
-public class User {
+public class User extends ChangeTrackedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import java.util.Date;
+
 public class HibernateBoilerPlate {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -37,6 +39,8 @@ public class HibernateBoilerPlate {
 
         user.setName("Ivan");
         user.setPassword("Chio");
+        user.setCreatedBy("Bonaf");
+        user.setCreatedOn(new Date());
 
         session.save(user);
         session.getTransaction().commit();
