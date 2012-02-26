@@ -35,7 +35,6 @@ public class HibernateBoilerPlate {
         session.beginTransaction();
         User user = new User();
 
-        user.setId(1L);
         user.setName("Ivan");
         user.setPassword("Chio");
 
