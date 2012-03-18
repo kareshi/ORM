@@ -1,7 +1,6 @@
 package com.ivan.tutorial.entity.dao;
 
 import com.ivan.tutorial.entity.User;
-import com.ivan.tutorial.entity.dao.UserDAO;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -15,14 +14,17 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class UserDAOTest {
+public class UserDAOJDBCTest {
 
     private DataSource datasource;
+    private UserDAOJDBC daoJdbc;
 
     @Before
     public void setUp() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("com/ivan/tutorial/spring/jdbc/spring-hibernate.xml");
         datasource = (DataSource)applicationContext.getBean("dataSource");
+        daoJdbc = new UserDAOJDBC();
+        daoJdbc.setDataSource(datasource);
     }
 
     @Test
@@ -35,14 +37,11 @@ public class UserDAOTest {
         user.setCreatedBy("Bonaf");
         user.setCreatedOn(new Date());
 
-        UserDAO dao = new UserDAO();
-        dao.setDataSource(datasource);
-        dao.create(user);
-        List<User> users = dao.selectAll();
+        daoJdbc.create(user);
+        List<User> users = daoJdbc.selectAll();
         
         assertThat(users.size(), is(1));
         User userFetched = users.get(0);
-        assertThat(userFetched, equalTo(user));
         assertThat(userFetched.getId(), is(1L));
         assertThat(userFetched.getName(), is(user.getName()));
         assertThat(userFetched.getPassword(), is(user.getPassword()));

@@ -1,7 +1,6 @@
-package com.ivan.tutorial.spring.jdbc;
+package com.ivan.tutorial.entity.dao;
 
 import com.ivan.tutorial.entity.User;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,24 +8,27 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class SpringHibernateBoilerPlate {
+public class UserDAOHibernateTest {
 
     private SessionFactory sessionFactory;
+    private UserDAOHibernate dao;
+
     @Before
     public void setUp() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("com/ivan/tutorial/spring/jdbc/spring-hibernate.xml");
         sessionFactory = (SessionFactory)applicationContext.getBean("sessionFactory");
+        dao = new UserDAOHibernate();
+        dao.setSessionFactory(sessionFactory);
     }
 
     @Test
     public void addUser() {
-        Session session = sessionFactory.openSession();
 
-        session.beginTransaction();
         User user = new User();
 
         user.setName("Ivanaf");
@@ -34,11 +36,14 @@ public class SpringHibernateBoilerPlate {
         user.setCreatedBy("Bonaf");
         user.setCreatedOn(new Date());
 
-        session.save(user);
-        session.getTransaction().commit();
+        dao.create(user);
+        List<User> users = dao.selectAll();
 
-        assertThat(session.contains(user), is(true));
-        
+        assertThat(users.size(), is(1));
+        User userFetched = users.get(0);
+        assertThat(userFetched.getId(), is(1L));
+        assertThat(userFetched.getName(), is(user.getName()));
+        assertThat(userFetched.getPassword(), is(user.getPassword()));
     }
 
 }
