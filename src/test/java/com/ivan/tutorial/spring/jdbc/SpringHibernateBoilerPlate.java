@@ -1,6 +1,6 @@
 package com.ivan.tutorial.spring.jdbc;
 
-import com.hsbc.gbm.cash.clearing.data.entity.User;
+import com.ivan.tutorial.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;

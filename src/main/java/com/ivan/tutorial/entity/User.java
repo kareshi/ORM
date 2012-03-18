@@ -1,4 +1,4 @@
-package com.hsbc.gbm.cash.clearing.data.entity;
+package com.ivan.tutorial.entity;
 
 import javax.persistence.*;
 
