@@ -38,4 +38,6 @@ public class User extends ChangeTrackedEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

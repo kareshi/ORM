@@ -11,10 +11,10 @@ public abstract class ChangeTrackedEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable=false)
-    private Date createdOn;
+    protected Date createdOn;
 
     @Column(nullable=false)
-    private String createdBy;
+    protected String createdBy;
 
     public Date getCreatedOn() {
         return createdOn;
