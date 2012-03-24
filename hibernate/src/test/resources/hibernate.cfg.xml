@@ -16,6 +16,8 @@
         <property name="hbm2ddl.auto">create</property>
         <mapping class="com.ivan.tutorial.entity.User"/>
         <mapping class="com.ivan.tutorial.entity.Authority"/>
+        <mapping class="com.ivan.tutorial.entity.Student"/>
+        <mapping class="com.ivan.tutorial.entity.Phone"/>
 
 
     </session-factory>

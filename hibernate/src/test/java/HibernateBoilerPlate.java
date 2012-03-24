@@ -1,7 +1,4 @@
-
-import com.ivan.tutorial.entity.Authority;
-import com.ivan.tutorial.entity.User;
-import com.ivan.tutorial.entity.UserUtil;
+import com.ivan.tutorial.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -19,7 +16,7 @@ import static org.junit.Assert.assertThat;
 
 public class HibernateBoilerPlate {
 
-    private SessionFactory sessionFactory ;
+    private SessionFactory sessionFactory;
     private User user;
 
     @Before
@@ -77,6 +74,34 @@ public class HibernateBoilerPlate {
         session.getTransaction().commit();
 
         session.close();
+    }
+
+    @Test
+    public void student() {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Set<Phone> phoneNumbers = new HashSet<Phone>();
+        phoneNumbers.add(new Phone("32354353"));
+        phoneNumbers.add(new Phone("9889343423"));
+
+        Student student = new Student();   
+        student.setName("Hippo");
+        student.setPhones(phoneNumbers);
+        session.save(student);
+
+        session.getTransaction().commit();
+        
+        session.beginTransaction();
+        List<Student> students = session.createCriteria(Student.class).list();
+        Student studentDb = students.get(0);
+        studentDb.getPhones().clear();
+
+        session.getTransaction().commit();
+
+        session.close();
+
+
     }
 
 
